@@ -20,8 +20,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "*",
-    access: true
+    origin: [
+      "https://reaction-battle-master-client.vercel.app"
+    ],
+    methods: ["GET", "POST"]
   },
 });
 
