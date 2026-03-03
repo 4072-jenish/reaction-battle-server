@@ -4,9 +4,10 @@ const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const gameSocket = require("./socket/gameSocket");
+const { access } = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 5000 ; 
+const PORT = process.env.PORT ; 
 
 app.use(cors());  
 app.use(express.json());
@@ -20,13 +21,13 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL || "*",
+    access: true
   },
 });
 
 gameSocket(io);
 
 
-
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-}); 
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
